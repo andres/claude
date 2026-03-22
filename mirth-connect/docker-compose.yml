@@ -1,0 +1,43 @@
+services:
+  db:
+    image: postgres:16
+    container_name: mirth-postgres
+    environment:
+      POSTGRES_DB: mirthdb
+      POSTGRES_USER: mirth
+      POSTGRES_PASSWORD: mirth
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mirth -d mirthdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mirth:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mirth-connect
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE: postgres
+      DATABASE_URL: jdbc:postgresql://db:5432/mirthdb
+      DATABASE_USERNAME: mirth
+      DATABASE_PASSWORD: mirth
+      KEYSTORE_STOREPASS: docker_storepass
+      KEYSTORE_KEYPASS: docker_keypass
+      VMOPTIONS: -Xmx512m
+    ports:
+      - "8080:8080"   # HTTP admin
+      - "8443:8443"   # HTTPS admin (Mirth Administrator Launcher)
+      - "8081:8081"   # FHIR channel: JSON → FHIR R4
+      - "8082:8082"   # FHIR channel: FHIR R4 → JSON
+    volumes:
+      - mirth_appdata:/opt/connect/appdata
+
+volumes:
+  postgres_data:
+  mirth_appdata:

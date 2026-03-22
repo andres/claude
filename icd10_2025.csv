@@ -1,0 +1,11 @@
+rank,icd10_code,description,usage_count
+1,F1010,Alcohol abuse uncomplicated,24
+2,F4310,Post-traumatic stress disorder unspecified,14
+3,Z5900,Homelessness unspecified,12
+4,F0631,Mood disorder due to known physiol cond w depressv features,9
+5,F32A,Depression unspecified,6
+5,F1110,Opioid abuse uncomplicated,6
+7,F320,Major depressive disorder single episode mild,4
+8,F1024,Alcohol dependence with alcohol-induced mood disorder,3
+8,F411,Generalized anxiety disorder,3
+8,F530,Postpartum depression,3
