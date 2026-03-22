@@ -1,0 +1,4 @@
+The Mirth Connect Administrator Launcher (mirth-administrator-launcher-latest-unix.sh) is not
+tracked in this repo due to its size (226 MB).
+
+Download it from: https://www.nextgen.com/products-and-services/nextgen-connect-integration-engine-downloads
