@@ -106,7 +106,53 @@ Vaccination records.
 ---
 
 ### `vitals`
-Patient vital signs.
+Patient vital signs recorded during encounters.
+
+| Column | Type | Notes |
+|--------|------|-------|
+| `id` | int(11) | PK |
+| `client_id` | int(11) | FK to people (Client) |
+| `user_id` | int(11) | FK to users (who recorded) |
+| `encounter_id` | int(11) | FK to encounters |
+| `encounter_form_id` | int(11) | FK to encounter_forms |
+| `signed_by` | int(11) | FK to users |
+| `effective_time` | datetime | When vitals were taken |
+| `bp_right_arm_sys` | int(11) | Blood pressure systolic (right arm) |
+| `bp_right_arm_dia` | int(11) | Blood pressure diastolic (right arm) |
+| `bp_right_arm_position` | varchar(255) | Position during reading |
+| `bp_left_arm_sys` | int(11) | Blood pressure systolic (left arm) |
+| `bp_left_artm_dia` | int(11) | Blood pressure diastolic (left arm) — **note typo in column name** |
+| `bp_left_arm_position` | varchar(255) | Position during reading |
+| `bp_other` | varchar(255) | Other BP reading |
+| `bp_other_note` | varchar(255) | Note for other BP |
+| `pulse_pm` | int(11) | Pulse per minute |
+| `respiration_pm` | int(11) | Respiration per minute |
+| `oxygen_saturation` | int(11) | O2 saturation |
+| `temperature` | decimal(8,2) | Temperature |
+| `temperature_units` | varchar(255) | Units (F/C) |
+| `temperature_place` | varchar(255) | Where taken (oral, etc.) |
+| `weight` | decimal(8,2) | Weight |
+| `weight_units` | varchar(255) | Units (lbs/kg) |
+| `height` | decimal(8,2) | Height |
+| `height_units` | varchar(255) | Units (in/cm) |
+| `calculated_bmi` | decimal(8,5) | Calculated BMI |
+| `calculated_bmi_percentile` | int(11) | BMI percentile |
+| `blood_glucose` | int(11) | Blood glucose |
+| `hba1c` | varchar(255) | HbA1c |
+| `triglycerides` | int(11) | Triglycerides |
+| `hdl` | int(11) | HDL cholesterol |
+| `ldl` | int(11) | LDL cholesterol |
+| `fio` | int(11) | FiO2 |
+| `head_circumference` | int(11) | Head circumference |
+| `not_taken` | varchar(255) | Flag if vitals not taken |
+| `reason_not_taken` | text | Reason vitals not taken |
+| `note` | text | General note |
+| `deleted_at` | datetime | Soft delete |
+
+> **GOTCHA:** The left arm diastolic column is misspelled as `bp_left_artm_dia` (not `bp_left_arm_dia`).
+
+> **High Blood Pressure Query:** Use systolic >= 130 OR diastolic >= 80 (AHA Stage 1 hypertension).
+> Check both arms: `bp_right_arm_sys`, `bp_right_arm_dia`, `bp_left_arm_sys`, `bp_left_artm_dia`.
 
 ---
 

@@ -1,0 +1,28 @@
+Read the semantic folder so you know your powers
+in the folder accumedic there are files to read as well,
+
+this instruction file,
+the into-bear-template.csv is a template for loading a bunch of new clients into EMR-Bear using the client importing tool.
+
+The file accumedic-export-to-load-into-bear.ods is a sample to see what it takes to generate a file from accumedic to make the expo and import,
+
+create a new file called matches,
+the top row is exactly like the into-bear-template.csv
+
+Match the headers of the following pages to the corresponding column in the into-bear-template file,
+
+ex. column: :first_name
+row 1 :first_name (as is the copy of the into-bear-template
+row 2  Patients (is the page where the information comes from, on the file accumedic-exportpto-load-into-bear )
+row 3  C (which is the column letter)
+row 4 first_name (which is the row description)
+
+Do like that for all the headers matching the into-bear-template,
+do not modify the main headers,
+
+add a section after the last one for unmatched fields 
+
+ 
+
+ 
+

@@ -1,0 +1,2 @@
+DOB,Last Name,First Name,Prescriber,Ancillary,Payor,Plan,Start date,End Date,Dose Date,Dose Time,Dose,Dose Unit,Take Home
+30/12/1992,Doe,John,Prex User Demo,Admin User,Self Pay,Self Pay,16/06/2025,20/06/2025,16/06/2025,13:00,60,mg,false

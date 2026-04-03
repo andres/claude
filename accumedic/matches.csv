@@ -1,0 +1,55 @@
+:legacy_id	:last_name	:first_name	:middle_initial	:suffix	:pronouns	:alias	:preferred	:race	:ethnicity	:gender_identity	:sexual_orientation	:religious_afiliation	:language	:second_language	:tribe	:marital	:location	:street_1	:street_2	:city	:state	:zip	:county	:address_type	:phone_work	:phone_work_ext	:phone_home	:phone_cell	:email	:dob	:age	:ssn	:gender	:dx_1	:dx_2	:dx_3	:dx_4	:dx_5	:payor	:plan	:policy_number	:group_number	:policy_start	:medicaid	:payor_2	:plan_2	:policy_number_2	:group_number_2	:policy_start_2	:payor_3	:plan_3	:policy_number_3	:group_number_3	:policy_start_3	:payor_4	:plan_4	:policy_number_4	:group_number_4	:policy_start_4	:program_1	:program_2	:program_3	:provider_id	:tat_agency	:emp_status
+Patients	Patients	Patients	Patients	—	—	—	—	—	—	—	—	—	—	—	—	—	Programs	Patients	Patients	Patients	Patients	Patients	—	—	—	—	Patients	Patients	Patients	Patients	—	Patients	Patients	Diags	Diags	Diags	Diags	Diags	Insurances	Insurances	Insurances	—	Insurances	—	Insurances	Insurances	Insurances	—	Insurances	Insurances	Insurances	Insurances	—	Insurances	Insurances	Insurances	Insurances	—	Insurances	Programs	—	—	Programs	—	—
+A	D	C	E	—	—	—	—	—	—	—	—	—	—	—	—	—	C	K	L	M	N	O	—	—	—	—	I	I	J	F	—	H	G	B	C	D	E	F	C	C	D	—	E	—	C	C	D	—	E	C	C	D	—	E	C	C	D	—	E	B	—	—	E	—	—
+account	last_name	first_name	mi	—	—	—	—	—	—	—	—	—	—	—	—	—	office_location	addr1	addr2	City	State	Zip	—	—	—	—	phone_number	phone_number	email	date_of_birth	—	ssn	sex	diag1	diag2	diag3	diag4	diag5	InsuranceName	InsuranceName	insurance_id	—	start_date	—	InsuranceName	InsuranceName	insurance_id	—	start_date	InsuranceName	InsuranceName	insurance_id	—	start_date	InsuranceName	InsuranceName	insurance_id	—	start_date	program_code	—	—	counselor	—	—
+
+=== UNMATCHED ACCUMEDIC FIELDS ===
+
+Sheet: Patients
+  B: file_number — No matching Bear field
+
+Sheet: Insurances
+  A: account — Used as join key only
+  B: insurance_type — No matching Bear field (IP/GP/etc.)
+  F: end_date — No matching Bear field for policy expiration
+  G: insurance_sequence — Used to determine :payor vs :payor_2 vs :payor_3 vs :payor_4
+
+Sheet: Programs
+  A: account — Used as join key only
+  D: date_of_admission — No matching Bear field in template
+
+Sheet: Authorizations (entire sheet)
+  A: authorization_number — Not in client import template
+  C: from_date — Not in client import template
+  D: thru_date — Not in client import template
+  E: Insurance_name — Not in client import template
+  F: auth_type (IOP or OTP) — Not in client import template
+  G: authorized (unit) — Not in client import template
+  H: used (unit) — Not in client import template
+  I: location (if required) — Not in client import template
+
+=== UNMATCHED BEAR TEMPLATE FIELDS (no Accumedic source) ===
+
+:suffix, :pronouns, :alias, :preferred, :race, :ethnicity, :gender_identity,
+:sexual_orientation, :religious_afiliation, :language, :second_language, :tribe,
+:marital, :county, :address_type, :phone_work, :phone_work_ext, :age,
+:group_number, :medicaid, :group_number_2, :group_number_3, :group_number_4,
+:program_2, :program_3, :tat_agency, :emp_status
+
+=== OTP ORDER MATCHING (otp-order-into-bear.csv) ===
+
+DOB	Last Name	First Name	Prescriber	Ancillary	Payor	Plan	Start date	End Date	Dose Date	Dose Time	Dose	Dose Unit	Take Home
+OTP	OTP	OTP	OTP	OTP	—	—	OTP	OTP	—	—	OTP	OTP	OTP
+A	B	C	D	E	—	—	F	G	—	—	I	J	K
+date_of_birth	last_name	first_name	provider_code	Ancillary	—	—	start_date	end_date	—	—	dose_amount	dose_unit	take_home
+
+=== UNMATCHED OTP FIELDS ===
+
+Bear template (no Accumedic source):
+  Payor — Not in OTP sheet (needs lookup from Insurances sheet or default to Self Pay)
+  Plan — Not in OTP sheet (needs lookup from Insurances sheet or default to Self Pay)
+  Dose Date — Not in OTP sheet (use start_date as initial dose date)
+  Dose Time — Not in OTP sheet (no time data in Accumedic export)
+
+Accumedic OTP (no Bear template column):
+  H: dose_sequence — Not in OTP import template (Bear may auto-generate)
